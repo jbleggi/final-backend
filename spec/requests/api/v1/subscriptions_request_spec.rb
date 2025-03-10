@@ -16,5 +16,16 @@ describe "Subscriptions API" do
     subscriptions = JSON.parse(response.body, symbolize_names: true)
 
     expect(subscriptions.count).to eq(5)
+
+    subscriptions.each do |subscription|
+      expect(subscription).to have_key(:id)
+      expect(subscription.id).to be_an Integer
+
+      expect(subscription).to have_key(:status)
+      expect(subscription.status).to be_a String
+
+      expect(subscription).to have_key(:cost)
+      expect(subscription.cost).to be_a Decimal
+    end
   end
 end
