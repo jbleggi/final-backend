@@ -1,6 +1,6 @@
 class Api::V1::SubscriptionsController < ApplicationController
   def index
-    render json: Subscription.all
+    render json: SubscriptionSerializer.new(Subscription.new)
   end
   
 end

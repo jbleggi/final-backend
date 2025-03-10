@@ -9,7 +9,7 @@ describe "Subscriptions API" do
     Subscription.create(status: "paused", cost: 10.00)
     Subscription.create(status: "paused", cost: 200.00)
 
-    get '/api/v1/subscriptions'
+    get subscriptions_path
 
     expect(response).to be_successful
 
