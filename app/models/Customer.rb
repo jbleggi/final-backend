@@ -9,4 +9,4 @@ class Customer < ApplicationRecord
     end
 end
 
-# customer.subscription to access customer's subscriptions
+# customer.subscriptions to access customer's subscriptions

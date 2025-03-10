@@ -1,6 +1,6 @@
 class Subscription < ApplicationRecord
   has_many :items, through: :items_subscriptions
-  has_many :customers
+  belongs_to :customer
 
   after_create :log_new_subscription
 
@@ -11,3 +11,4 @@ class Subscription < ApplicationRecord
 end
 
 # subscription.items to access items in a subscription
+# subscription.customer to access cust associated with a subs
