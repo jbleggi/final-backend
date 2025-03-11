@@ -24,6 +24,12 @@ subscriptions = []
   )
 end
 
+image_urls = ["https://www.pexels.com/photo/pink-petaled-flowers-near-teacup-and-saucer-1758279/", 
+  "https://www.pexels.com/photo/clear-glass-bowl-with-herbs-and-tea-3604314/", 
+  "https://www.pexels.com/photo/orange-petaled-flowers-in-clear-glass-pitcher-with-water-on-brown-table-close-up-photography-230489/", 
+  "https://www.pexels.com/photo/white-cup-filled-with-orange-liquid-on-top-of-white-saucer-208493/",
+  "https://www.pexels.com/photo/sliced-orange-fruit-in-clear-drinking-glass-3323682/"]
+
 # CREATE ITEMS
 items = []
 5.times do
@@ -31,7 +37,7 @@ items = []
     name: Faker::Tea.type,
     number_bags: 20,
     cost: Faker::Commerce.price(range: 5.0..30.0),
-    image_url: "https://www.flaticon.com/free-icons/tea-bag"
+    image_url: image_urls.sample
   )
 end
 
