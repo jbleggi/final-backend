@@ -7,7 +7,16 @@ RSpec.describe Subscription, type: :model do
   end
 
   describe "relationships" do
-    
+    it 'has and belongs to many items through items_subscriptions' do
+      subscription = Subscription.reflect_on_association(:items)
+      expect(subscription.macro).to eq(:has_and_belongs_to_many)
+      expect(subscription.options[:through]).to eq(:items_subscriptions)
+    end
+
+    it 'has many items_subscriptions' do
+      subscription = Subscription.reflect_on_association(:items_subscriptions)
+      expect(subscription.macro).to eq(:has_many)
+    end
   end
 
   describe "validations" do
