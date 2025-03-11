@@ -4,7 +4,7 @@ require 'faker'
 subscriptions = []
 5.times do 
   subscriptions << Subscription.create!(
-    status: ["active", "paused", "canceled"].sample, 
+    status: ["active", "canceled"].sample, 
     cost: Faker::Commerce.price(range: 10.0..50.0)
   )
 end
