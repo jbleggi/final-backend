@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_10_175413) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_11_030814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,8 +25,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_10_175413) do
     t.string "address_zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "subscription_id"
-    t.index ["subscription_id"], name: "index_customers_on_subscription_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -52,7 +50,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_10_175413) do
     t.decimal "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "customer_id"
+    t.index ["customer_id"], name: "index_subscriptions_on_customer_id"
   end
 
-  add_foreign_key "customers", "subscriptions"
+  add_foreign_key "subscriptions", "customers"
 end
