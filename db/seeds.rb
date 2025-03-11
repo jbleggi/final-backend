@@ -1,14 +1,45 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-Subscription.create(status: "active", cost: 20.00)
-Subscription.create(status: "active", cost: 25.00)
-Subscription.create(status: "canceled", cost: 20.00)
-Subscription.create(status: "paused", cost: 10.00)
-Subscription.create(status: "paused", cost: 200.00)
+require 'faker'
+
+# CREATE SUBSCRIPTIONS
+subscriptions = []
+5.times do 
+  subscriptions << Subscription.create!(
+    status: ["active", "paused", "canceled"].sample, 
+    cost: Faker::Commerce.price(range: 10.0..50.0)
+  )
+end
+
+# CREATE CUSTOMERS
+5.times do
+  subscription = subscriptions.sample
+  Customer.create!(
+    first_name: Faker::Name.first_name,  
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    address_line_1: Faker::Address.street_address,
+    address_city: Faker::Address.city,
+    address_state: Faker::Address.state,
+    address_zip: Faker::Address.zip, 
+    subscription_id: subscription.id)
+end
+
+# CREATE ITEMS
+items = []
+5.times do
+  items << Item.create!(
+    name: Faker::Tea.type,
+    number_bags: 20,
+    cost: Faker::Commerce.price(range: 5.0..30.0),
+    image_url: "https://www.flaticon.com/free-icons/tea-bag"
+  )
+end
+
+5.times do 
+  ItemsSubscription.create!(
+    subscription_id: subscriptions.sample.id,
+    item_id: items.sample.id,
+    quantity: rand(1..5)
+  )
+end
+
+puts "Seeding complete!"

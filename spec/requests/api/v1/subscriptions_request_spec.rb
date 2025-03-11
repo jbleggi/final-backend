@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 describe "Subscriptions API" do 
-  it "sends a list of subscriptions" do 
-    get subscriptions_path
+  it "sends a list of subscriptions" do
+    get api_v1_subscriptions_path
 
     expect(response).to be_successful
 
