@@ -1,7 +1,9 @@
 class Api::V1::SubscriptionsController < ApplicationController
   def index
     subscriptions = Subscription.all
-    render json: SubscriptionSerializer.new(subscriptions)
+    # render json: SubscriptionSerializer.new(subscriptions)
+    render json: { subscriptions: SubscriptionSerializer.new(subscriptions).serializable_hash[:data].map { |subscription| subscription[:attributes] } }
+
   end
   
   def show
