@@ -2,6 +2,12 @@
 require 'rails_helper'
 
 describe "Subscriptions API" do 
+  before do
+    5.times do 
+      create(:subscription)
+    end
+  end
+  
   it "can send a list of subscriptions" do
     get api_v1_subscriptions_path
 
@@ -34,7 +40,7 @@ describe "Subscriptions API" do
   end
 
   it "can edit the status of a subscription based on id" do
-    id = Subscription.create(status: 'active', cost: 10.00)
+    id = Subscription.first.id
     previous_status = Subscription.first.status
     updated_status_params = { status: "canceled" }
     headers = {"CONTENT_TYPE" => "application/json"}
