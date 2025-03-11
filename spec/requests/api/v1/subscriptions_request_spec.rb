@@ -21,7 +21,7 @@ describe "Subscriptions API" do
   it "can retrieve one subscription based on id" do
     id = Subscription.first.id
 
-    get "/api/v1/subscriptions/#{id}"
+    get api_v1_subscription_path(id)
 
     result = JSON.parse(response.body, symbolize_names: true)
 
@@ -33,4 +33,18 @@ describe "Subscriptions API" do
     expect(result[:data][:attributes][:id]).to eq id
   end
 
+  it "can edit the status of a subscription based on id" do
+    id = Subscription.create(status: 'active', cost: 10.00)
+    previous_status = Subscription.first.status
+    updated_status_params = { status: "canceled" }
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch api_v1_subscription_path(id), headers: headers, params: JSON.generate(updated_status_params)
+
+    subscription = Subscription.find_by(id: id)
+
+    expect(response).to be_successful
+    expect(subscription.status).to_not eq(previous_status)
+    expect(subscription.status).to eq("canceled")
+  end
 end
