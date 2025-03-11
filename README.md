@@ -1,44 +1,43 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
 ## About
-Should be a breif summary of what is the application.
+This is the backend API intended for the administrators of a monthly mail order Tea Subscription Service. 
+
 ## Built With
-Include the Ruby and RSpec version here.
+Rails 7.1.5.1 & RSpec 3.13 on a MacOS
+
 ## Getting Started
-Breakdown the set-up instructions. Start with how to clone down the application and include all the steps necessary to run it locally.
-Not sure if you missed something? Ask a peer to follow your directions exactly to see if they can run the application.
+1. Use Terminal to select the intended directory for download.
+2. `git clone git@github.com:jbleggi/final-backend.git`
+3. Open into the `final-backend` directory 
+4. Run `bundle install` and `rails db:reset` in your Terminal
+5. Run `rails s` in your Terminal to connect to the local server
+6. Navigate to `https://localhost:3000/api/v1/subscriptions` on your preferred browser to view all subscriptions in the database.
+
+## Postman Endpoints
+1. Run `rails s` in Terminal
+2. To view all subscriptions: GET `http://localhost:3000/api/v1/subscriptions`
+3. To view one subscription in detail: GET `http://localhost:3000/api/v1/subscriptions/:id`
+4. To edit the status of a subscription: PATCH `http://localhost:3000/api/v1/subscriptions/:id` with JSON body of
+      ```
+      {
+        "subscription": {
+          "status": "canceled" --or-- "active"
+        }
+      }
+      ```
+      
 ## Testing
+RSpec tests are organized into Model tests, where the relationship associations and validations are inspected, and in a Request test, where the endpoint functionality is tested.  Model testing is valuable to this application in order to ensure smooth data logic within the backend of the application.   This application uses a Request spec (as opposed to an outdated Controller spec) in order to test the user's ability to send HTTP requests to this application.  
+1. Run `bundle exec rspec`
+2. Run `open/coverage/index` to see a detailed SimpleCov report regarding the line-by-line coverage in the tests
 Give directions for how to run your tests.
 Explain how your tests are organized.
 Provide a summary of the types of tests that you’ve written and why those tests are vaulable to the application.
+
 ## Challenges & Wins
-Reflect on your process and what you have learned in the project.
-What were the challenges you experienced?
-How did you overcome them?
-How will this experience benefit you in future projects?
-## Authors (Optional)
-If you worked in a pair or group, give those partners recognition!
-Make their name a link to their GitHub Account.
+While the CRUD endpoints used are fairly straightforward, the model relationships of the Customer/Item(Tea)/Subscription are more complex. This is the first project where I used the relationship associations in order to serialize the data exposed by these endpoints (in particular, the GET detailed subscription information).  
+
+I had fun experimenting with the Faker and FactoryBot gems in order to seed my database tables and create  factories for the RSpec tests. This is the most complex data organization that I have seeded to date, and I enjoyed being able to implement for loops within the data in order to randomize mocked data retrieved with Faker and from Pexels.  
+
+I look forward to returning to this project to add more details-- in particular connecting this database to an external API-- and expanding the CRUD route functionality of the app. 
