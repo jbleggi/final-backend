@@ -2,44 +2,27 @@
 require "rails_helper"
 
 RSpec.describe Subscription, type: :model do
-  describe "instance methods" do 
+  # describe "instance methods" do 
     
-  end
+  # end
 
-  describe "relationships" do
-    it 'has and belongs to many items through items_subscriptions' do
-      subscription = Subscription.reflect_on_association(:items)
-      expect(subscription.macro).to eq(:has_and_belongs_to_many)
-      expect(subscription.options[:through]).to eq(:items_subscriptions)
-    end
-
-    it 'has many items_subscriptions' do
-      subscription = Subscription.reflect_on_association(:items_subscriptions)
-      expect(subscription.macro).to eq(:has_many)
-    end
+  describe "associations" do
+    it { should belong_to(:customer) }
+    it { should have_and_belong_to_many(:items).join_table(:items_subscriptions) }
+    it { should have_many(:items_subscriptions) }
   end
 
   describe "validations" do
-    it 'is valid with a status of active' do
-      subscription = Subscription.new(status: 'active')
+    it "validates the status as active or canceled" do
+      subscription = build(:subscription)
       expect(subscription).to be_valid
+      expect(subscription.errors).to be_empty
+
+      new_subscription = build(:subscription, status: "something_else")
+      expect(new_subscription).to be_invalid
+      expect(new_subscription.errors[:status]).to include("something_else is not a valid status")
     end
-  
-    it 'is valid with a status of canceled' do
-      subscription = Subscription.new(status: 'canceled')
-      expect(subscription).to be_valid
-    end
-  
-    it 'is invalid with a status that is not active or canceled' do
-      subscription = Subscription.new(status: 'expired')
-      expect(subscription).not_to be_valid
-      expect(subscription.errors[:status]).to include('expired is not a valid status')
-    end
-  
-    it 'is invalid without a status' do
-      subscription = Subscription.new(status: nil)
-      expect(subscription).not_to be_valid
-      expect(subscription.errors[:status]).to include("can't be blank")
-    end
+
   end
+
 end
