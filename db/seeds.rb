@@ -2,7 +2,7 @@ require 'faker'
 
 # CREATE CUSTOMERS
 customers = []
-5.times do
+20.times do
   customers << Customer.create!(
     first_name: Faker::Name.first_name,  
     last_name: Faker::Name.last_name,
@@ -13,14 +13,16 @@ customers = []
     address_zip: Faker::Address.zip)
 end
 
-# CREATE SUBSCRIPTIONS
+# CREATE SUBSCRIPTION
 subscriptions = []
-5.times do 
-  customer = customers.sample
+30.times do 
+  num_customers = rand(2..5)
+  selected_customers = customers.sample(num_customers)
+  customer_ids = selected_customers.map { |customer| customer.id }
   subscriptions << Subscription.create!(
     status: ["active", "canceled"].sample, 
     cost: Faker::Commerce.price(range: 10.0..50.0),
-    customer_id: customer.id
+    customer_id: customer_ids
   )
 end
 
@@ -32,7 +34,7 @@ image_urls = ["https://www.pexels.com/photo/pink-petaled-flowers-near-teacup-and
 
 # CREATE ITEMS
 items = []
-5.times do
+10.times do
   items << Item.create!(
     name: Faker::Tea.type,
     number_bags: 20,
@@ -41,7 +43,7 @@ items = []
   )
 end
 
-5.times do 
+30.times do 
   ItemsSubscription.create!(
     subscription_id: subscriptions.sample.id,
     item_id: items.sample.id,
