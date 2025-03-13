@@ -8,8 +8,9 @@ RSpec.describe Subscription, type: :model do
 
   describe "associations" do
     it { should belong_to(:customer) }
-    it { should have_and_belong_to_many(:items).join_table(:items_subscriptions) }
     it { should have_many(:items_subscriptions) }
+    it { should have_many(:items).through(:items_subscriptions) }
+
   end
 
   describe "validations" do

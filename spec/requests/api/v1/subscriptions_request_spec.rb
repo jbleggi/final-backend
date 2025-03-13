@@ -14,13 +14,13 @@ describe "Subscriptions API" do
     expect(response).to be_successful
     
     results = JSON.parse(response.body, symbolize_names: true)
+ 
+    expect(results[:subscriptions].count).to eq(5)
 
-    expect(results[:data].count).to eq(5)
-
-    results[:data].each do |subscription|
-      expect(subscription[:attributes]).to have_key(:id)
-      expect(subscription[:attributes]).to have_key(:status)
-      expect(subscription[:attributes]).to have_key(:cost)
+    results[:subscriptions].each do |subscription|
+      expect(subscription).to have_key(:id)
+      expect(subscription).to have_key(:status)
+      expect(subscription).to have_key(:cost)
     end
   end
 

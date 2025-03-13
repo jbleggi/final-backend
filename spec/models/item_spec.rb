@@ -7,8 +7,9 @@ RSpec.describe Item, type: :model do
   # end
 
   describe "associations" do
+    it { should have_many(:subscriptions).through(:items_subscriptions) }
     it { should have_many :items_subscriptions }
-    it { should have_and_belong_to_many(:subscriptions).join_table(:items_subscriptions) }
+
   end
 
   # describe "validations" do
