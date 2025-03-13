@@ -26,7 +26,7 @@ Rails 7.1.5.1 & RSpec 3.13 on a MacOS
         }
       }
       ```
-![Postman screenshot](/src/assets/postman.png)
+![Postman screenshot](/app/assets/postman.png)
   
 ## Testing
 RSpec tests are organized into Model tests, where the relationship associations and validations are inspected, and in a Request test, where the endpoint functionality is tested.  Model testing is valuable to this application in order to ensure smooth data logic within the backend of the application.   This application uses a Request spec (as opposed to an outdated Controller spec) in order to test the user's ability to send HTTP requests to this application.  
