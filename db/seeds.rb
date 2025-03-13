@@ -41,12 +41,16 @@ items = []
   )
 end
 
-30.times do 
-  ItemsSubscription.create!(
-    subscription_id: subscriptions.sample.id,
-    item_id: items.sample.id,
-    quantity: rand(1..5)
-  )
+# CREATE ITEMSUBSCRIPTION ENTRIES
+subscriptions.each do |subscription|
+  items_to_assign = items.sample(3)  
+  items_to_assign.each do |item|
+    ItemsSubscription.create!(
+      subscription_id: subscription.id,
+      item_id: item.id,
+      quantity: rand(1..5)  # Random quantity per item
+    )
+  end
 end
 
 puts "Seeding complete!"
