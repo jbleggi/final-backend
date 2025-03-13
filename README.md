@@ -32,8 +32,7 @@ RSpec tests are organized into Model tests, where the relationship associations 
 1. Run `bundle exec rspec`
 2. Run `open/coverage/index` to see a detailed SimpleCov report regarding the line-by-line coverage in the tests
 Give directions for how to run your tests.
-Explain how your tests are organized.
-Provide a summary of the types of tests that you’ve written and why those tests are vaulable to the application.
+
 
 ## Challenges & Wins
 While the CRUD endpoints used are fairly straightforward, the model relationships of the Customer/Item(Tea)/Subscription are more complex. This is the first project where I used the relationship associations in order to serialize the data exposed by these endpoints (in particular, the GET detailed subscription information).  
