@@ -7,7 +7,8 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
   
   def show
-    render json: SubscriptionSerializer.new(Subscription.find(params[:id]))
+    subscription = Subscription.includes(:items, :customer).find(params[:id])
+    render json: SubscriptionSerializer.new(subscription).to_json
   end
 
   def update
