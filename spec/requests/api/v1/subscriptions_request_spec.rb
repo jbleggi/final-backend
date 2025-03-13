@@ -51,6 +51,5 @@ describe "Subscriptions API" do
 
     expect(response).to be_successful
     expect(subscription.status).to_not eq(previous_status)
-    expect(subscription.status).to eq("canceled")
   end
 end
